@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="top">
+                <h4>Add a new course!</h4>
+                <form action="/course/add_course" method="POST">
+                    {% csrf_token %}
+                    <label for="name">Course Name:<br><input type="text" name="name" id="name"></label><br>
+                    <label for="description">Course Description:<br><input type="textbox" name="description" id="description"></label>
+                    <input type="submit" class="button" value="Add"> 
+                    <br>
+                </form>
+            </div>
+            <div class="bottom">
+                <div class="courses">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Description</th>
+                                <th>Date Added</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for course in courses %}
+                        <!-- {% csrf_token %} -->
+                            <tr>
+                                <th>{{course.name}}</th>
+                                <th>{{course.description}}</th>
+                                <th>{{course.created_at}}</th>
+                                <th>
+                                    <form action='/course/destroy/{{course.id}}' method='post'>
+                                        {% csrf_token %}
+                                        <input type='submit' value="Remove"/>
+                                    </form>
+                                </th>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
