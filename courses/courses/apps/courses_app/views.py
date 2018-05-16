@@ -6,10 +6,14 @@ def index(request):
     return render(request, 'index.html', {"courses": Courses.objects.all()})
 
 def add_course(request):
+    # if request.method != request.POST:
+    #     return redirect('/')
     errors = Courses.objects.validate_user(request.POST)
 
     if len(errors):
-        return redirect('/')
+		for tag, error in errors.iteritems():
+    			messages.error(request, error)
+		return redirect('/')
     
     name = request.POST['name']
     description= request.POST['description']

@@ -8,6 +8,13 @@
     </head>
     <body>
         <div class="wrapper">
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
             <div class="top">
                 <h4>Add a new course!</h4>
                 <form action="/course/add_course" method="POST">

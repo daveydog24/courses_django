@@ -6,13 +6,11 @@ class UserManager(models.Manager):
     def validate_user(self, postData):
         errors = {}
 
-        if len(postData['name']) < 2:
-            errors['name'] = "Course Name can not be blank."
-            # message... --> flash?
+        if len(postData['name']) < 5:
+            errors['name'] = "Course Name can not be less than 5 characters."
 
-        if len(postData['description']) < 2:
-            errors['description'] = "Description can not be blank."
-            # message... --> flash?
+        if len(postData['description']) < 15:
+            errors['description'] = "Description cant be less than 15 characters."
 
         return errors
 
